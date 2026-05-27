@@ -104,6 +104,23 @@ export const bookFormSchema = z
         message: '시작일은 출판일 이후여야 합니다',
       });
     }
+  })
+  .superRefine((data, ctx) => {
+    if (data.rating < 0.5) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['rating'],
+        message: '별점을 선택해주세요',
+      });
+    }
+
+    if ((data.rating === 1 || data.rating === 5) && data.review.length < 100) {
+      ctx.addIssue({
+        code: 'custom',
+        path: ['review'],
+        message: `별점 ${data.rating}점일 때는 최소 100자 이상 작성해야 합니다`,
+      });
+    }
   });
 
 export type BookFormValues = z.infer<typeof bookFormSchema>;
@@ -111,7 +128,7 @@ export type BookFormValues = z.infer<typeof bookFormSchema>;
 export const STEP_FIELDS: Record<Step, (keyof BookFormValues)[]> = {
   'book-info': ['title', 'author', 'totalPages', 'publishDate', 'readingStatus', 'startDate', 'endDate'],
   rating: ['recommended', 'rating'],
-  review: ['review'],
+  review: ['review', 'rating'],
   quotes: ['quotes'],
   visibility: ['isPublic'],
 };
