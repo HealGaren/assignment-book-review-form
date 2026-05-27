@@ -29,7 +29,7 @@ export const bookFormSchema = z
 
     quotes: z.array(
       z.object({
-        text: z.string(),
+        text: z.string().min(1, '인용구 내용을 입력해주세요'),
         pageNumber: z.number().optional(),
       }),
     ),
@@ -121,6 +121,31 @@ export const bookFormSchema = z
         message: `별점 ${data.rating}점일 때는 최소 100자 이상 작성해야 합니다`,
       });
     }
+  })
+  .superRefine((data, ctx) => {
+    const requirePageNumber = data.quotes.length >= 2;
+
+    data.quotes.forEach((quote, i) => {
+      if (requirePageNumber && quote.pageNumber == null) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['quotes', i, 'pageNumber'],
+          message: '페이지 번호를 입력해주세요',
+        });
+      }
+
+      if (
+        quote.pageNumber != null &&
+        data.totalPages > 0 &&
+        quote.pageNumber >= data.totalPages
+      ) {
+        ctx.addIssue({
+          code: 'custom',
+          path: ['quotes', i, 'pageNumber'],
+          message: `페이지 번호는 전체 페이지수(${data.totalPages})보다 작아야 합니다`,
+        });
+      }
+    });
   });
 
 export type BookFormValues = z.infer<typeof bookFormSchema>;
@@ -129,6 +154,6 @@ export const STEP_FIELDS: Record<Step, (keyof BookFormValues)[]> = {
   'book-info': ['title', 'author', 'totalPages', 'publishDate', 'readingStatus', 'startDate', 'endDate'],
   rating: ['recommended', 'rating'],
   review: ['review', 'rating'],
-  quotes: ['quotes'],
+  quotes: ['quotes', 'totalPages'],
   visibility: ['isPublic'],
 };
