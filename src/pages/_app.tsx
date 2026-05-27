@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import type { AppProps } from 'next/app';
 import type { EmotionCache } from '@emotion/cache';
 import { CacheProvider, ThemeProvider } from '@emotion/react';
@@ -11,7 +12,6 @@ import { GlobalStyle } from '@/styles/GlobalStyle';
 import { bookFormSchema, type BookFormValues } from '@/features/book-form/schema';
 
 const clientSideEmotionCache = createEmotionCache();
-const queryClient = new QueryClient();
 
 const defaultValues: BookFormValues = {
   title: '',
@@ -19,8 +19,8 @@ const defaultValues: BookFormValues = {
   totalPages: 0,
   publishDate: '',
   readingStatus: 'want-to-read',
-  startDate: '',
-  endDate: '',
+  startDate: undefined,
+  endDate: undefined,
   recommended: false,
   rating: 0,
   review: '',
@@ -37,6 +37,7 @@ export default function App({
   pageProps,
   emotionCache = clientSideEmotionCache,
 }: MyAppProps) {
+  const [queryClient] = useState(() => new QueryClient());
   const methods = useForm<BookFormValues>({
     resolver: zodResolver(bookFormSchema),
     defaultValues,

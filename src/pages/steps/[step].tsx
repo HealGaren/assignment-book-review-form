@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react';
 import { useRouter } from 'next/router';
 
 import { isValidStep, type Step } from '@/features/book-form/constants';
@@ -9,7 +10,7 @@ import { QuotesStep } from '@/features/book-form/components/QuotesStep';
 import { VisibilityStep } from '@/features/book-form/components/VisibilityStep';
 import { useStepGuard } from '@/features/book-form/hooks/useStepGuard';
 
-const STEP_COMPONENTS: Record<Step, React.ComponentType> = {
+const STEP_COMPONENTS: Record<Step, ComponentType> = {
   'book-info': BookInfoStep,
   rating: RatingStep,
   review: ReviewStep,

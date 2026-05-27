@@ -27,6 +27,6 @@ export function getPrevStep(step: Step): Step | null {
   return i > 0 ? STEPS[i - 1] : null;
 }
 
-export function isStepCompleted(current: Step, target: Step): boolean {
+export function hasPassedStep(current: Step, target: Step): boolean {
   return getStepIndex(current) > getStepIndex(target);
 }

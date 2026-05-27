@@ -1,8 +1,8 @@
-import { Global, css } from '@emotion/react';
+import { css, Global } from '@emotion/react';
 
 export const GlobalStyle = () => (
   <Global
-    styles={css`
+    styles={(theme) => css`
       *,
       *::before,
       *::after {
@@ -12,8 +12,8 @@ export const GlobalStyle = () => (
       }
       body {
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        color: #111827;
-        background: #ffffff;
+        color: ${theme.colors.text};
+        background: ${theme.colors.background};
         line-height: 1.6;
       }
     `}
