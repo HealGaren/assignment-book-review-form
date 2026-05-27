@@ -1,40 +1,31 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 독서 기록 멀티스텝 폼
 
-## Getting Started
+에프랩 멘토링 08회차 과제 — 5단계 독서 기록 폼.
 
-First, run the development server:
+## 단계
+
+1. **도서 정보** — 기본 정보, 독서 상태, 기간
+2. **추천/별점** — 추천 여부, 0~5점 (0.5 스케일)
+3. **독후감** — 자유 텍스트 (별점 1/5일 때 최소 100자)
+4. **인용구** — 여러 개 등록/삭제 가능 (useFieldArray)
+5. **공개 여부** — 공개/비공개 선택 후 제출
+
+## 기술 스택
+
+Next.js (Page Router) · TypeScript · React Query · react-hook-form + zod · Emotion · jotai
+
+## 실행
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+pnpm install
+pnpm dev          # localhost:3000
+pnpm build
+pnpm typecheck    # tsc --noEmit
+pnpm lint
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 문서
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+- [CLAUDE.md](./CLAUDE.md) — AI/개발 컨벤션
+- [FRONTEND_ARCHITECTURE.md](./FRONTEND_ARCHITECTURE.md) — 설계 철학
+- [DECISIONS.md](./DECISIONS.md) — 기술/설계 결정
